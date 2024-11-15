@@ -9,6 +9,7 @@ dotnet add package Microsoft.EntityFrameworkCore.SqlServer
 
 ***** outils Entity Framework Core - CLI .NET Core : https://learn.microsoft.com/fr-fr/ef/core/cli/dotnet
 
+// a ajouter dans le container
 dotnet tool install --global dotnet-ef
 dotnet tool update --global dotnet-ef
 dotnet add package Microsoft.EntityFrameworkCore.Design

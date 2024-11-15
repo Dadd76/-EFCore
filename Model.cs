@@ -9,22 +9,35 @@ public class BloggingContext : DbContext
     public DbSet<Blog> Blogs { get; set; }
     public DbSet<Post> Posts { get; set; }
 
-    public string DbPath { get; }
+    public string DbPath { get;  set;}
+    private readonly IConfiguration _configuration;
 
-    public BloggingContext(IConfiguration configuration)
+     public BloggingContext() { }
+
+   public BloggingContext(DbContextOptions<BloggingContext> options, IConfiguration configuration)
+        : base(options)
     {
         // var folder = Environment.SpecialFolder.LocalApplicationData;
         // var path = Environment.GetFolderPath(folder);
         // DbPath = System.IO.Path.Join(path, "blogging.db");
 
        // var currentDirectory = AppContext.BaseDirectory.;
-            DbPath = Path.Combine(AppContext.BaseDirectory, configuration["DatabasePath"]);
+               _configuration = configuration;
         }
 
     // The following configures EF to create a Sqlite database file in the
     // special "local" folder for your platform.
     protected override void OnConfiguring(DbContextOptionsBuilder options)
-        => options.UseSqlite($"Data Source={DbPath}");
+    {
+       //  DbPath = _configuration.GetConnectionString("DefaultConnection");
+        //options.UseSqlite($"Data Source={DbPath}").LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information);
+        //Console.WriteLine(AppContext.BaseDirectory);
+                var folder = Environment.SpecialFolder.LocalApplicationData;
+        DbPath = "/workspaces/EFCore/blogging.db";
+       // DbPath = System.IO.Path.Join(path, "blogging.db");
+        Console.WriteLine(DbPath);
+         options.UseSqlite($"Data Source={DbPath}").LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information);
+    }
 }
 
 public class Blog
