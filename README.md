@@ -29,3 +29,6 @@ dotnet add package Microsoft.Extensions.Configuration.FileExtensions
 
 dotnet ef migrations add InitialCreate
 dotnet ef database update
+
+
+https://sqlitebrowser.org/
